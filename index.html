@@ -9,11 +9,11 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: url('pg.jpg')
+      background:#f5f7fa;
       color: #333;
     }
     header {
-      background: url('cover 2.jpg') no-repeat center center/cover;
+      background: url('cover1.jpg') no-repeat center center/cover;
       color: #fff;
       padding: 40px;
       display: flex;
@@ -37,13 +37,19 @@
       color: #004466;
       font-weight: bold;
     }
+  
     section {
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
+      padding: 30px;
+      margin: 20px auto;
+      max-width: 1100px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
     }
-    h2 {
-      color: #004466;
+      h2 {
+      border-bottom: 2px solid #eee;
+      padding-bottom: 8px;
+      color: #004080;
     }
     .portfolio-item {
       background: #fff;
@@ -51,6 +57,54 @@
       margin-bottom: 15px;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .industry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .industry-card {
+      background: #f9f9f9;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .industry-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .industry-card h3 {
+      margin-top: 0;
+      font-size: 1.3em;
+    }
+    .bfsicolor { border-left: 6px solid #0073e6; }
+    .healthcolor { border-left: 6px solid #28a745; }
+    .aviationcolor { border-left: 6px solid #6c757d; }
+    .oilcolor { border-left: 6px solid #ff8800; }
+    .aicolor { border-left: 6px solid #6f42c1; }
+    .generalcolor { border-left: 6px solid #999; }
+    ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    .showcase-item {
+      background: #eef2f7;
+      padding: 15px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: 500;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .showcase-item:hover {
+      background: #dce3ef;
+      transform: scale(1.05);
     }
     footer {
       background: #004466;
@@ -71,21 +125,78 @@
   </header>
 
   <nav>
-    <a href="#about">About</a>
-    <a href="#samples">Writing Samples</a>
+    <a href="#Professional_Summary">Professional Summary</a>
+    <a href="#Industry_Expertise">Industry Expertise</a>
     <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
   </nav>
 
-  <section id="about">
-    <h2>About Me</h2>
+  <section id="#Professional_Summary">
+    <h2>Professional Summary</h2>
     <p>&nbsp&nbsp   Seasoned Technical Writer with 10+ years of experience in creating end-user documentation, API references, developer guides, and product manuals across diverse domains including Healthcare, BFSI, Aviation, Oil & Gas, and AI/ML platforms. </p>
 
 <p>&nbsp&nbsp Adept at collaborating with cross-functional teams, simplifying complex technical concepts, and delivering high-quality documentation that enhances product usability and customer satisfaction
 </p>
   </section>
 
-  <section id="samples">
+  <section id="Industry_Expertise">
+   <h2>Industry Expertise</h2>
+  <div class="industry-grid">
+    <div class="industry-card bfsicolor">
+      <h3>🏦 BFSI</h3>
+      <ul>
+        <li>Skills: Regulatory compliance, risk management</li>
+        <li>Docs: Policy manuals, SOPs</li>
+        <li>Projects: “Digital Banking Onboarding Guide”</li>
+      </ul>
+    </div>
+    <div class="industry-card healthcolor">
+      <h3>⚕️ Healthcare</h3>
+      <ul>
+        <li>Skills: Clinical documentation, HIPAA compliance</li>
+        <li>Docs: Training manuals, compliance reports</li>
+        <li>Projects: “Electronic Health Record User Manual”</li>
+      </ul>
+    </div>
+    <div class="industry-card aviationcolor">
+      <h3>✈️ Aviation</h3>
+      <ul>
+        <li>Skills: Safety documentation, maintenance manuals</li>
+        <li>Docs: Pilot training guides, SOPs</li>
+        <li>Projects: “Flight Safety Training Handbook”</li>
+      </ul>
+    </div>
+    <div class="industry-card oilcolor">
+      <h3>⛽ Oil & Gas</h3>
+      <ul>
+        <li>Skills: Safety standards, workflows</li>
+        <li>Docs: SOPs, compliance reports</li>
+        <li>Projects: “Pipeline Safety SOPs”</li>
+      </ul>
+    </div>
+    <div class="industry-card aicolor">
+      <h3>🤖 AI/ML Platforms</h3>
+      <ul>
+        <li>Skills: API documentation, developer guides</li>
+        <li>Docs: API references, SDK docs</li>
+        <li>Projects: “ML Platform API Documentation”</li>
+      </ul>
+    </div>
+    <div class="industry-card generalcolor">
+      <h3>📘 General Documentation</h3>
+      <ul>
+        <li>Skills: User manuals, training materials</li>
+        <li>Docs: SOPs, onboarding guides</li>
+        <li>Projects: “Enterprise Knowledge Base Articles”</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+    
+    
+    
+    =====================================
     <h2>Writing Samples</h2>
     <div class="portfolio-item">
       <h3>User Guide: KB Creation for the Gen AI</h3>
