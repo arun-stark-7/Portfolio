@@ -191,13 +191,8 @@
       </ul>
     </div>
   </div>
-</section>
-
-    
-    
-    
-    =====================================
-    <h2>Writing Samples</h2>
+</section>  
+  <h2>Writing Samples</h2>
     <div class="portfolio-item">
       <h3>User Guide: KB Creation for the Gen AI</h3>
       <p>Created a comprehensive user guide covering capturing, chunking, Vector DB, configuration, and troubleshooting.</p>
@@ -214,7 +209,100 @@
       <a href="#">View Sample</a>
     </div>
   </section>
+<section>
+  <h2>Awards</h2>
+  <ul>
+    <!-- Best Team Award trigger -->
+    <li onclick="openAwardModal('team')" style="cursor:pointer; color:#004080; font-weight:bold;">
+      🏅 Best Team Award – Click to View Certificate
+    </li>
+    <!-- Outstanding Documentation Excellence trigger -->
+    <li onclick="openAwardModal('doc')" style="cursor:pointer; color:#004080; font-weight:bold;">
+      🏅 Outstanding Documentation Excellence – Healthcare IT (2021) – Click to View Certificate
+    </li>
+  </ul>
+</section>
 
+<!-- Best Team Award Modal -->
+<div id="teamAwardModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeAwardModal('team')">&times;</span>
+    <h3>Best Team Award Certificate</h3>
+    <img src="best-team-award-certificate.jpg" alt="Best Team Award Certificate" style="width:100%; border-radius:8px;">
+  </div>
+</div>
+
+<!-- Outstanding Documentation Excellence Modal -->
+<div id="docAwardModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeAwardModal('doc')">&times;</span>
+    <h3>Outstanding Documentation Excellence Certificate</h3>
+    <img src="outstanding-documentation-certificate.jpg" alt="Outstanding Documentation Excellence Certificate" style="width:100%; border-radius:8px;">
+  </div>
+</div>
+
+<!-- Modal Styling -->
+<style>
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1000; 
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.6);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 70%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  text-align: center;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: #000;
+}
+</style>
+
+<!-- Modal Script -->
+<script>
+function openAwardModal(type) {
+  if(type === 'team') {
+    document.getElementById("teamAwardModal").style.display = "block";
+  } else if(type === 'doc') {
+    document.getElementById("docAwardModal").style.display = "block";
+  }
+}
+function closeAwardModal(type) {
+  if(type === 'team') {
+    document.getElementById("teamAwardModal").style.display = "none";
+  } else if(type === 'doc') {
+    document.getElementById("docAwardModal").style.display = "none";
+  }
+}
+window.onclick = function(event) {
+  const teamModal = document.getElementById("teamAwardModal");
+  const docModal = document.getElementById("docAwardModal");
+  if (event.target == teamModal) {
+    teamModal.style.display = "none";
+  }
+  if (event.target == docModal) {
+    docModal.style.display = "none";
+  }
+}
+</script>
+
+
+  
   <section id="skills">
     <h2>Skills</h2>
     <ul>
