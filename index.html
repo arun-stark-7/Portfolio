@@ -193,17 +193,118 @@
   </div>
 </section>  
 
-  <section>
+<section>
   <h2>Documentation Showcase</h2>
   <div class="showcase-grid">
-    <div class="showcase-item">📖 End User Guides </div>
-    <div class="showcase-item">💻 API Documentation</div>
-    <div class="showcase-item">📊 Developer Documentation</div>
-    <div class="showcase-item">🎓 Training Materials</div>
-    <div class="showcase-item">⚙️ Release Notes</div>
-    <div class="showcase-item">🔍 Knowledge Base Articles</div>
+    <div class="showcase-item" onclick="openDocModal('user')">📖 End User Guides</div>
+    <div class="showcase-item" onclick="openDocModal('api')">💻 API Documentation</div>
+    <div class="showcase-item" onclick="openDocModal('dev')">📊 Developer Documentation</div>
+    <div class="showcase-item" onclick="openDocModal('training')">🎓 Training Materials</div>
+    <div class="showcase-item" onclick="openDocModal('release')">⚙️ Release Notes</div>
+    <div class="showcase-item" onclick="openDocModal('kb')">🔍 Knowledge Base Articles</div>
   </div>
 </section>
+
+<!-- Modals -->
+<div id="userModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeDocModal('user')">&times;</span>
+    <h3>End User Guides</h3>
+    <embed src="end-user-guides.pdf" type="application/pdf" width="100%" height="600px" />
+  </div>
+</div>
+
+<div id="apiModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeDocModal('api')">&times;</span>
+    <h3>API Documentation</h3>
+    <embed src="api-documentation.pdf" type="application/pdf" width="100%" height="600px" />
+  </div>
+</div>
+
+<div id="devModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeDocModal('dev')">&times;</span>
+    <h3>Developer Documentation</h3>
+    <embed src="developer-documentation.pdf" type="application/pdf" width="100%" height="600px" />
+  </div>
+</div>
+
+<div id="trainingModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeDocModal('training')">&times;</span>
+    <h3>Training Materials</h3>
+    <embed src="training-materials.pdf" type="application/pdf" width="100%" height="600px" />
+  </div>
+</div>
+
+<div id="releaseModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeDocModal('release')">&times;</span>
+    <h3>Release Notes</h3>
+    <embed src="release-notes.pdf" type="application/pdf" width="100%" height="600px" />
+  </div>
+</div>
+
+<div id="kbModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeDocModal('kb')">&times;</span>
+    <h3>Knowledge Base Articles</h3>
+    <embed src="knowledge-base.pdf" type="application/pdf" width="100%" height="600px" />
+  </div>
+</div>
+
+<!-- Modal Styling -->
+<style>
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: #000;
+}
+</style>
+
+<!-- Modal Script -->
+<script>
+function openDocModal(type) {
+  document.getElementById(type + "Modal").style.display = "block";
+}
+function closeDocModal(type) {
+  document.getElementById(type + "Modal").style.display = "none";
+}
+window.onclick = function(event) {
+  ['user','api','dev','training','release','kb'].forEach(function(type){
+    const modal = document.getElementById(type + "Modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  });
+}
+</script>
+
+  
+
+
   
 <section>
 
@@ -313,7 +414,7 @@ window.onclick = function(event) {
 
   <section id="contact">
     <h2>Contact</h2>
-    <p>Email: arunkumar@gamil.com</p>
+    <p>Email: arunstark7@gamil.com</p>
     <p>Phone: +91-9600656365</p>
     <p>LinkedIn: <a href="https://www.linkedin.com/in/arunkumar-m-39b45993/">linkedin.com/in/Arunkumar M</a></p>
   </section>
