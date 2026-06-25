@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PayFlow REST API — Documentation v2.1.0</title>
+
+  <!-- Tabler Icons (icon font used throughout) -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ═══════════════════════════════════════════════
+       SIDEBAR
+  ═══════════════════════════════════════════════ -->
+  <aside class="sidebar">
+
+    <!-- Logo + version -->
+    <div class="sidebar-header">
+      <div class="logo"><span>Pay</span>Flow API</div>
+      <div class="version-badge">v2.1.0</div>
+    </div>
+
+    <nav class="nav">
+
+      <!-- ── Getting Started ── -->
+      <div class="nav-section">
+        <div class="nav-title">Getting Started</div>
+
+        <div class="nav-item active" onclick="show('overview', this)">
+          <i class="ti ti-home" aria-hidden="true"></i> Overview
+        </div>
+        <div class="nav-item" onclick="show('auth', this)">
+          <i class="ti ti-lock" aria-hidden="true"></i> Authentication
+        </div>
+      </div>
+
+      <!-- ── Endpoints ── -->
+      <div class="nav-section">
+        <div class="nav-title">Endpoints</div>
+
+        <div class="nav-item" onclick="show('endpoints', this)">
+          <i class="ti ti-layout-list" aria-hidden="true"></i> All Endpoints
+        </div>
+
+        <!-- Sub-nav: individual endpoints -->
+        <div class="nav-sub">
+          <div class="nav-item" onclick="show('payments', this)">
+            <span class="method-pill pill-post">POST</span> Create payment
+          </div>
+          <div class="nav-item" onclick="show('get-payment', this)">
+            <span class="method-pill pill-get">GET</span> Get payment
+          </div>
+          <div class="nav-item" onclick="show('refund', this)">
+            <span class="method-pill pill-post">POST</span> Refund payment
+          </div>
+          <div class="nav-item" onclick="show('customers', this)">
+            <span class="method-pill pill-post">POST</span> Create customer
+          </div>
+          <div class="nav-item" onclick="show('subscriptions', this)">
+            <span class="method-pill pill-patch">PATCH</span> Update subscription
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Reference ── -->
+      <div class="nav-section">
+        <div class="nav-title">Reference</div>
+
+        <div class="nav-item" onclick="show('errors', this)">
+          <i class="ti ti-alert-triangle" aria-hidden="true"></i> Errors
+        </div>
+        <div class="nav-item" onclick="show('rate-limits', this)">
+          <i class="ti ti-gauge" aria-hidden="true"></i> Rate Limiting
+        </div>
+        <div class="nav-item" onclick="show('changelog', this)">
+          <i class="ti ti-history" aria-hidden="true"></i> Changelog
+        </div>
+        <div class="nav-item" onclick="show('support', this)">
+          <i class="ti ti-lifebuoy" aria-hidden="true"></i> Support
+        </div>
+      </div>
+
+    </nav>
+  </aside><!-- /sidebar -->
+
+
+  <!-- ═══════════════════════════════════════════════
+       MAIN CONTENT
+  ═══════════════════════════════════════════════ -->
+  <main class="main">
+    <div class="content">
+
+
+      <!-- ──────────────────────────────────────────
+           PAGE: OVERVIEW
+      ────────────────────────────────────────── -->
+      <div class="page active" id="page-overview">
+
+        <!-- Hero banner -->
+        <div class="cover-banner">
+          <h1>PayFlow REST API</h1>
+          <p>Integrate payments, subscriptions, and customer management into your application.</p>
+          <div class="cover-meta">
+            <span class="cover-tag">v2.1.0</span>
+            <span class="cover-tag">HTTPS only</span>
+            <span class="cover-tag">JSON</span>
+            <span class="cover-tag">api.payflow.io/v2</span>
+          </div>
+        </div>
+
+        <div class="section-title">API Overview</div>
+        <div class="section-subtitle">
+          The PayFlow API follows REST conventions. All requests use HTTPS and all
+          request/response bodies are JSON-encoded.
+        </div>
+
+        <!-- Key info grid -->
+        <div class="info-grid">
+          <div class="info-card">
+            <label>Base URL</label>
+            <value>https://api.payflow.io/v2</value>
+          </div>
+          <div class="info-card">
+            <label>API Version</label>
+            <value>v2.1.0</value>
+          </div>
+          <div class="info-card">
+            <label>Data Format</label>
+            <value>application/json</value>
+          </div>
+          <div class="info-card">
+            <label>Rate Limit</label>
+            <value>500 req / minute</value>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Quick links -->
+        <div class="section-title">Quick Links</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+          <span class="tag" style="cursor:pointer"
+                onclick="show('auth', document.querySelector('[onclick*=auth]'))">
+            <i class="ti ti-lock" aria-hidden="true"></i> Authentication
+          </span>
+          <span class="tag" style="cursor:pointer"
+                onclick="show('payments', document.querySelectorAll('.nav-item')[4])">
+            <i class="ti ti-credit-card" aria-hidden="true"></i> Create a payment
+          </span>
+          <span class="tag" style="cursor:pointer"
+                onclick="show('errors', document.querySelectorAll('.nav-item')[10])">
+            <i class="ti ti-alert-triangle" aria-hidden="true"></i> Error codes
+          </span>
+          <span class="tag" style="cursor:pointer"
+                onclick="show('rate-limits', document.querySelectorAll('.nav-item')[11])">
+            <i class="ti ti-gauge" aria-hidden="true"></i> Rate limits
+          </span>
+        </div>
+
+      </div><!-- /page-overview -->
+
+
+      <!-- ──────────────────────────────────────────
+           PAGE: AUTHENTICATION
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-auth">
+
+        <div class="section-title">Authentication</div>
+        <div class="section-subtitle">
+          PayFlow uses API keys to authenticate requests. Include your key in every request using
+          the <code style="font-family:var(--font-mono);background:var(--color-background-secondary);
+          padding:1px 5px;border-radius:3px">Authorization</code> header.
+        </div>
+
+        <!-- Request header -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-key" aria-hidden="true"></i>
+            <h3>Request header</h3>
+          </div>
+          <div class="card-body">
+            <div class="code-block">
+              Authorization: Bearer YOUR_API_KEY<br>
+              Content-Type: application/json
+            </div>
+            <div class="alert alert-warn">
+              <i class="ti ti-alert-triangle" aria-hidden="true"></i>
+              Never expose your API key in client-side code or public repositories.
+            </div>
+          </div>
+        </div>
+
+        <!-- Key types -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-cards" aria-hidden="true"></i>
+            <h3>API key types</h3>
+          </div>
+          <div class="card-body">
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Key Type</th>
+                  <th>Prefix</th>
+                  <th>Environment</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">Live Key</td>
+                  <td class="param-type">pf_live_</td>
+                  <td>Production</td>
+                  <td>Real transactions</td>
+                </tr>
+                <tr>
+                  <td class="param-name">Test Key</td>
+                  <td class="param-type">pf_test_</td>
+                  <td>Sandbox</td>
+                  <td>No real charges</td>
+                </tr>
+                <tr>
+                  <td class="param-name">Restricted Key</td>
+                  <td class="param-type">pf_rstr_</td>
+                  <td>Both</td>
+                  <td>Limited permissions</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Example cURL -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-terminal" aria-hidden="true"></i>
+            <h3>Example cURL request</h3>
+          </div>
+          <div class="card-body">
+            <div class="code-block">
+              curl -X GET https://api.payflow.io/v2/payments \<br>
+              &nbsp;&nbsp;-H "Authorization: Bearer pf_live_xK9mN2qR7vB4" \<br>
+              &nbsp;&nbsp;-H "Content-Type: application/json"
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-auth -->
+
+
+      <!-- ──────────────────────────────────────────
+           PAGE: ALL ENDPOINTS
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-endpoints">
+
+        <div class="section-title">All Endpoints</div>
+        <div class="section-subtitle">Complete list of available API endpoints grouped by resource.</div>
+
+        <!-- Payments group -->
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <i class="ti ti-credit-card" aria-hidden="true"></i>
+            <h3>Payments</h3>
+          </div>
+          <div>
+            <div class="endpoint-row" onclick="show('payments', null)">
+              <span class="method-pill pill-get">GET</span>
+              <span class="ep-path">/payments</span>
+              <span class="ep-desc">List all payments</span>
+            </div>
+            <div class="endpoint-row" onclick="show('payments', null)">
+              <span class="method-pill pill-post">POST</span>
+              <span class="ep-path">/payments</span>
+              <span class="ep-desc">Create a new payment</span>
+            </div>
+            <div class="endpoint-row" onclick="show('get-payment', null)">
+              <span class="method-pill pill-get">GET</span>
+              <span class="ep-path">/payments/{id}</span>
+              <span class="ep-desc">Retrieve a payment</span>
+            </div>
+            <div class="endpoint-row" onclick="show('refund', null)">
+              <span class="method-pill pill-post">POST</span>
+              <span class="ep-path">/payments/{id}/refund</span>
+              <span class="ep-desc">Issue a refund</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customers group -->
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <i class="ti ti-users" aria-hidden="true"></i>
+            <h3>Customers</h3>
+          </div>
+          <div>
+            <div class="endpoint-row" onclick="show('customers', null)">
+              <span class="method-pill pill-get">GET</span>
+              <span class="ep-path">/customers</span>
+              <span class="ep-desc">List all customers</span>
+            </div>
+            <div class="endpoint-row" onclick="show('customers', null)">
+              <span class="method-pill pill-post">POST</span>
+              <span class="ep-path">/customers</span>
+              <span class="ep-desc">Create a customer</span>
+            </div>
+            <div class="endpoint-row">
+              <span class="method-pill pill-get">GET</span>
+              <span class="ep-path">/customers/{id}</span>
+              <span class="ep-desc">Get a customer</span>
+            </div>
+            <div class="endpoint-row">
+              <span class="method-pill pill-put">PUT</span>
+              <span class="ep-path">/customers/{id}</span>
+              <span class="ep-desc">Update a customer</span>
+            </div>
+            <div class="endpoint-row">
+              <span class="method-pill pill-del">DEL</span>
+              <span class="ep-path">/customers/{id}</span>
+              <span class="ep-desc">Delete a customer</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subscriptions group -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-refresh" aria-hidden="true"></i>
+            <h3>Subscriptions</h3>
+          </div>
+          <div>
+            <div class="endpoint-row" onclick="show('subscriptions', null)">
+              <span class="method-pill pill-get">GET</span>
+              <span class="ep-path">/subscriptions</span>
+              <span class="ep-desc">List all subscriptions</span>
+            </div>
+            <div class="endpoint-row" onclick="show('subscriptions', null)">
+              <span class="method-pill pill-post">POST</span>
+              <span class="ep-path">/subscriptions</span>
+              <span class="ep-desc">Create a subscription</span>
+            </div>
+            <div class="endpoint-row" onclick="show('subscriptions', null)">
+              <span class="method-pill pill-patch">PATCH</span>
+              <span class="ep-path">/subscriptions/{id}</span>
+              <span class="ep-desc">Update a subscription</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-endpoints -->
+
+
+      <!-- ──────────────────────────────────────────
+           PAGE: CREATE PAYMENT  (POST /payments)
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-payments">
+
+        <div class="section-title">Create a Payment</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+          <span class="method-pill pill-post" style="font-size:12px;padding:3px 10px">POST</span>
+          <code style="font-family:var(--font-mono);font-size:14px;color:var(--color-text-primary)">/payments</code>
+        </div>
+        <div class="section-subtitle">
+          Creates a new payment transaction. Amounts are in the smallest currency unit (cents for USD).
+        </div>
+
+        <!-- Request parameters -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-list" aria-hidden="true"></i>
+            <h3>Request parameters</h3>
+          </div>
+          <div class="card-body">
+            <table class="param-table">
+              <thead>
+                <tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">amount</td>
+                  <td class="param-type">integer</td>
+                  <td><span class="req-badge">Required</span></td>
+                  <td>Amount in smallest unit (e.g. 1000 = $10.00)</td>
+                </tr>
+                <tr>
+                  <td class="param-name">currency</td>
+                  <td class="param-type">string</td>
+                  <td><span class="req-badge">Required</span></td>
+                  <td>ISO 4217 currency code (USD, EUR, GBP)</td>
+                </tr>
+                <tr>
+                  <td class="param-name">payment_method</td>
+                  <td class="param-type">string</td>
+                  <td><span class="req-badge">Required</span></td>
+                  <td>Token from PayFlow.js tokenization</td>
+                </tr>
+                <tr>
+                  <td class="param-name">customer_id</td>
+                  <td class="param-type">string</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>Associate with an existing customer</td>
+                </tr>
+                <tr>
+                  <td class="param-name">description</td>
+                  <td class="param-type">string</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>Arbitrary description (max 500 chars)</td>
+                </tr>
+                <tr>
+                  <td class="param-name">metadata</td>
+                  <td class="param-type">object</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>Key-value pairs for additional data</td>
+                </tr>
+                <tr>
+                  <td class="param-name">capture</td>
+                  <td class="param-type">boolean</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>If false, only authorizes (default: true)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Request body example -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-arrow-up" aria-hidden="true"></i>
+            <h3>Request body example</h3>
+          </div>
+          <div class="card-body">
+            <div class="code-block">
+              {<br>
+              &nbsp;&nbsp;"amount": 4999,<br>
+              &nbsp;&nbsp;"currency": "USD",<br>
+              &nbsp;&nbsp;"payment_method": "pm_xK9mN2qR7vB4wL8j",<br>
+              &nbsp;&nbsp;"customer_id": "cus_P3tY3cZ6nM1kQ9wR",<br>
+              &nbsp;&nbsp;"description": "Pro Plan - Monthly Subscription",<br>
+              &nbsp;&nbsp;"metadata": { "order_id": "ORD-20250601-4821" }<br>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Response example -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-arrow-down" aria-hidden="true"></i>
+            <h3>Response example — 200 OK</h3>
+          </div>
+          <div class="card-body">
+            <div class="code-block">
+              {<br>
+              &nbsp;&nbsp;"id": "pay_7vB4wL8jxK9mN2qR",<br>
+              &nbsp;&nbsp;"object": "payment",<br>
+              &nbsp;&nbsp;"amount": 4999,<br>
+              &nbsp;&nbsp;"currency": "USD",<br>
+              &nbsp;&nbsp;"status": "succeeded",<br>
+              &nbsp;&nbsp;"customer_id": "cus_P3tY3cZ6nM1kQ9wR",<br>
+              &nbsp;&nbsp;"created_at": "2025-06-01T10:23:45Z",<br>
+              &nbsp;&nbsp;"description": "Pro Plan - Monthly Subscription"<br>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Status codes -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-circle-check" aria-hidden="true"></i>
+            <h3>Status codes</h3>
+          </div>
+          <div class="card-body">
+            <div class="status-row">
+              <span class="status-code s2xx">200</span>
+              <span style="font-size:13px;color:var(--color-text-secondary)">Payment created and captured successfully</span>
+            </div>
+            <div class="status-row">
+              <span class="status-code s2xx">202</span>
+              <span style="font-size:13px;color:var(--color-text-secondary)">Authorized but not captured (when capture: false)</span>
+            </div>
+            <div class="status-row">
+              <span class="status-code s4xx">400</span>
+              <span style="font-size:13px;color:var(--color-text-secondary)">Bad request — invalid or missing parameters</span>
+            </div>
+            <div class="status-row">
+              <span class="status-code s4xx">401</span>
+              <span style="font-size:13px;color:var(--color-text-secondary)">Unauthorized — invalid or missing API key</span>
+            </div>
+            <div class="status-row">
+              <span class="status-code s4xx">402</span>
+              <span style="font-size:13px;color:var(--color-text-secondary)">Payment required — card declined or insufficient funds</span>
+            </div>
+            <div class="status-row">
+              <span class="status-code s4xx">422</span>
+              <span style="font-size:13px;color:var(--color-text-secondary)">Unprocessable — payment method invalid or expired</span>
+            </div>
+            <div class="status-row">
+              <span class="status-code s4xx">429</span>
+              <span style="font-size:13px;color:var(--color-text-secondary)">Too many requests — rate limit exceeded</span>
+            </div>
+            <div class="status-row">
+              <span class="status-code s5xx">500</span>
+              <span style="font-size:13px;color:var(--color-text-secondary)">Internal server error — contact support</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-payments -->
+
+
+      <!-- ──────────────────────────────────────────
+           PAGE: GET PAYMENT  (GET /payments/{id})
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-get-payment">
+
+        <div class="section-title">Retrieve a Payment</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+          <span class="method-pill pill-get" style="font-size:12px;padding:3px 10px">GET</span>
+          <code style="font-family:var(--font-mono);font-size:14px;color:var(--color-text-primary)">/payments/{id}</code>
+        </div>
+        <div class="section-subtitle">
+          Retrieves the details of an existing payment using its unique identifier.
+        </div>
+
+        <!-- Path parameters -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-list" aria-hidden="true"></i>
+            <h3>Path parameters</h3>
+          </div>
+          <div class="card-body">
+            <table class="param-table">
+              <thead>
+                <tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">id</td>
+                  <td class="param-type">string</td>
+                  <td><span class="req-badge">Required</span></td>
+                  <td>Unique payment ID (e.g. pay_7vB4wL8jxK9mN2qR)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Example request -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-terminal" aria-hidden="true"></i>
+            <h3>Example request</h3>
+          </div>
+          <div class="card-body">
+            <div class="code-block">
+              curl https://api.payflow.io/v2/payments/pay_7vB4wL8jxK9mN2qR \<br>
+              &nbsp;&nbsp;-H "Authorization: Bearer pf_live_xK9mN2qR7vB4"
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-get-payment -->
+
+
+      <!-- ──────────────────────────────────────────
+           PAGE: REFUND  (POST /payments/{id}/refund)
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-refund">
+
+        <div class="section-title">Refund a Payment</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+          <span class="method-pill pill-post" style="font-size:12px;padding:3px 10px">POST</span>
+          <code style="font-family:var(--font-mono);font-size:14px;color:var(--color-text-primary)">/payments/{id}/refund</code>
+        </div>
+        <div class="section-subtitle">
+          Issues a full or partial refund for an existing payment. Refunds appear on your
+          customer's statement within 5–10 business days.
+        </div>
+
+        <!-- Request parameters -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-list" aria-hidden="true"></i>
+            <h3>Request parameters</h3>
+          </div>
+          <div class="card-body">
+            <table class="param-table">
+              <thead>
+                <tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">amount</td>
+                  <td class="param-type">integer</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>Amount to refund in cents. Defaults to full amount.</td>
+                </tr>
+                <tr>
+                  <td class="param-name">reason</td>
+                  <td class="param-type">string</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>duplicate, fraudulent, or customer_request</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="alert alert-info" style="margin-top:16px">
+          <i class="ti ti-info-circle" aria-hidden="true"></i>
+          Refunds can only be issued within 90 days of the original payment.
+        </div>
+
+      </div><!-- /page-refund -->
+
+
+      <!-- ──────────────────────────────────────────
+           PAGE: CREATE CUSTOMER  (POST /customers)
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-customers">
+
+        <div class="section-title">Create a Customer</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+          <span class="method-pill pill-post" style="font-size:12px;padding:3px 10px">POST</span>
+          <code style="font-family:var(--font-mono);font-size:14px;color:var(--color-text-primary)">/customers</code>
+        </div>
+        <div class="section-subtitle">
+          Creates a new customer object. Use customers to track payments, subscriptions,
+          and saved payment methods.
+        </div>
+
+        <!-- Request parameters -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-list" aria-hidden="true"></i>
+            <h3>Request parameters</h3>
+          </div>
+          <div class="card-body">
+            <table class="param-table">
+              <thead>
+                <tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">email</td>
+                  <td class="param-type">string</td>
+                  <td><span class="req-badge">Required</span></td>
+                  <td>Customer's email address</td>
+                </tr>
+                <tr>
+                  <td class="param-name">name</td>
+                  <td class="param-type">string</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>Full name of the customer</td>
+                </tr>
+                <tr>
+                  <td class="param-name">phone</td>
+                  <td class="param-type">string</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>Customer's phone number</td>
+                </tr>
+                <tr>
+                  <td class="param-name">metadata</td>
+                  <td class="param-type">object</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>Key-value pairs for additional data</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Example request -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-terminal" aria-hidden="true"></i>
+            <h3>Example request</h3>
+          </div>
+          <div class="card-body">
+            <div class="code-block">
+              {<br>
+              &nbsp;&nbsp;"email": "priya@example.com",<br>
+              &nbsp;&nbsp;"name": "Priya Sharma",<br>
+              &nbsp;&nbsp;"phone": "+91-98765-43210",<br>
+              &nbsp;&nbsp;"metadata": { "plan": "enterprise" }<br>
+              }
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-customers -->
+
+
+      <!-- ──────────────────────────────────────────
+           PAGE: UPDATE SUBSCRIPTION (PATCH /subscriptions/{id})
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-subscriptions">
+
+        <div class="section-title">Update a Subscription</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+          <span class="method-pill pill-patch" style="font-size:12px;padding:3px 10px">PATCH</span>
+          <code style="font-family:var(--font-mono);font-size:14px;color:var(--color-text-primary)">/subscriptions/{id}</code>
+        </div>
+        <div class="section-subtitle">
+          Partially updates a subscription. Only fields included in the request body will be changed.
+        </div>
+
+        <!-- Request parameters -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-list" aria-hidden="true"></i>
+            <h3>Request parameters</h3>
+          </div>
+          <div class="card-body">
+            <table class="param-table">
+              <thead>
+                <tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">plan_id</td>
+                  <td class="param-type">string</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>ID of the new plan to switch to</td>
+                </tr>
+                <tr>
+                  <td class="param-name">quantity</td>
+                  <td class="param-type">integer</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>Number of seats or units</td>
+                </tr>
+                <tr>
+                  <td class="param-name">cancel_at_period_end</td>
+                  <td class="param-type">boolean</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>If true, cancels at end of billing cycle</td>
+                </tr>
+                <tr>
+                  <td class="param-name">metadata</td>
+                  <td class="param-type">object</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>Key-value pairs for additional data</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /page-subscriptions -->
+
+
+      <!-- ──────────────────────────────────────────
+           PAGE: ERRORS
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-errors">
+
+        <div class="section-title">Error Handling</div>
+        <div class="section-subtitle">
+          PayFlow returns standard error objects. Always check the HTTP status code and parse the
+          error body to handle failures gracefully.
+        </div>
+
+        <!-- Error object structure -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-code" aria-hidden="true"></i>
+            <h3>Error object structure</h3>
+          </div>
+          <div class="card-body">
+            <table class="param-table">
+              <thead>
+                <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">error.code</td>
+                  <td class="param-type">string</td>
+                  <td><span class="req-badge">Required</span></td>
+                  <td>Machine-readable code (e.g. card_declined)</td>
+                </tr>
+                <tr>
+                  <td class="param-name">error.message</td>
+                  <td class="param-type">string</td>
+                  <td><span class="req-badge">Required</span></td>
+                  <td>Human-readable error description</td>
+                </tr>
+                <tr>
+                  <td class="param-name">error.param</td>
+                  <td class="param-type">string</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>Parameter that caused the error</td>
+                </tr>
+                <tr>
+                  <td class="param-name">error.doc_url</td>
+                  <td class="param-type">string</td>
+                  <td><span class="opt-badge">Optional</span></td>
+                  <td>Link to error-specific documentation</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Error response example -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-arrow-down" aria-hidden="true"></i>
+            <h3>Error response example — 402</h3>
+          </div>
+          <div class="card-body">
+            <div class="code-block">
+              {<br>
+              &nbsp;&nbsp;"error": {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;"code": "card_declined",<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;"message": "Your card has insufficient funds.",<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;"param": "payment_method",<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;"doc_url": "https://docs.payflow.io/errors/card_declined"<br>
+              &nbsp;&nbsp;}<br>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Common error codes -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-list" aria-hidden="true"></i>
+            <h3>Common error codes</h3>
+          </div>
+          <div class="card-body">
+            <table class="param-table">
+              <thead>
+                <tr><th>Code</th><th>HTTP</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">card_declined</td>
+                  <td class="param-type">402</td>
+                  <td>Card was declined by the issuer</td>
+                </tr>
+                <tr>
+                  <td class="param-name">insufficient_funds</td>
+                  <td class="param-type">402</td>
+                  <td>Card has insufficient funds</td>
+                </tr>
+                <tr>
+                  <td class="param-name">expired_card</td>
+                  <td class="param-type">422</td>
+                  <td>Payment method has expired</td>
+                </tr>
+                <tr>
+                  <td class="param-name">invalid_api_key</td>
+                  <td class="param-type">401</td>
+                  <td>API key is missing or invalid</td>
+                </tr>
+                <tr>
+                  <td class="param-name">rate_limit_exceeded</td>
+                  <td class="param-type">429</td>
+                  <td>Too many requests in the current window</td>
+                </tr>
+                <tr>
+                  <td class="param-name">invalid_currency</td>
+                  <td class="param-type">400</td>
+                  <td>Currency code is not supported</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /page-errors -->
+
+
+      <!-- ──────────────────────────────────────────
+           PAGE: RATE LIMITING
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-rate-limits">
+
+        <div class="section-title">Rate Limiting</div>
+        <div class="section-subtitle">
+          PayFlow enforces rate limits per API key. Limit information is returned in every
+          response as HTTP headers.
+        </div>
+
+        <!-- Rate limit headers -->
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <i class="ti ti-arrows-exchange" aria-hidden="true"></i>
+            <h3>Rate limit headers</h3>
+          </div>
+          <div class="card-body">
+            <table class="param-table">
+              <thead>
+                <tr><th>Header</th><th>Type</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">X-RateLimit-Limit</td>
+                  <td class="param-type">integer</td>
+                  <td>Max requests allowed per minute</td>
+                </tr>
+                <tr>
+                  <td class="param-name">X-RateLimit-Remaining</td>
+                  <td class="param-type">integer</td>
+                  <td>Requests left in current window</td>
+                </tr>
+                <tr>
+                  <td class="param-name">X-RateLimit-Reset</td>
+                  <td class="param-type">integer</td>
+                  <td>Unix timestamp when window resets</td>
+                </tr>
+                <tr>
+                  <td class="param-name">Retry-After</td>
+                  <td class="param-type">integer</td>
+                  <td>Seconds to wait (only on 429 responses)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Limits by plan -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-table" aria-hidden="true"></i>
+            <h3>Limits by plan</h3>
+          </div>
+          <div class="card-body">
+            <table class="rate-table" style="border-radius:var(--border-radius-md);overflow:hidden">
+              <thead>
+                <tr><th>Plan</th><th>Requests / minute</th><th>Requests / day</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Starter</td><td>100</td><td>10,000</td></tr>
+                <tr><td>Growth</td><td>500</td><td>100,000</td></tr>
+                <tr><td>Enterprise</td><td>2,000</td><td>Unlimited</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <i class="ti ti-info-circle" aria-hidden="true"></i>
+          If you receive a 429 response, wait for the number of seconds in the
+          <code>Retry-After</code> header before retrying.
+        </div>
+
+      </div><!-- /page-rate-limits -->
+
+
+      <!-- ──────────────────────────────────────────
+           PAGE: CHANGELOG
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-changelog">
+
+        <div class="section-title">Changelog</div>
+        <div class="section-subtitle">Version history and release notes for the PayFlow API.</div>
+
+        <div class="card">
+          <div class="card-body">
+
+            <!-- v2.1.0 -->
+            <div class="changelog-version">v2.1.0</div>
+            <div class="changelog-date">June 2025</div>
+            <div class="changelog-item">Added PATCH /subscriptions/{id} for partial updates</div>
+            <div class="changelog-item">New metadata field support on payments and customers</div>
+            <div class="changelog-item">Improved card decline error messages with granular codes</div>
+            <div class="changelog-item">Rate limit headers now included on all responses</div>
+
+            <div class="section-divider"></div>
+
+            <!-- v2.0.0 -->
+            <div class="changelog-version">v2.0.0</div>
+            <div class="changelog-date">January 2025</div>
+            <div class="changelog-item">
+              <span class="breaking">BREAKING</span> Removed /charges — use /payments instead
+            </div>
+            <div class="changelog-item">
+              <span class="breaking">BREAKING</span> Amount is now always in smallest currency unit
+            </div>
+            <div class="changelog-item">Added multi-currency support (50+ currencies)</div>
+            <div class="changelog-item">Introduced restricted API keys with endpoint-level permissions</div>
+
+            <div class="section-divider"></div>
+
+            <!-- v1.5.0 -->
+            <div class="changelog-version">v1.5.0</div>
+            <div class="changelog-date">September 2024</div>
+            <div class="changelog-item">Added subscription management endpoints</div>
+            <div class="changelog-item">New webhook event: payment.refunded</div>
+            <div class="changelog-item">Idempotency key support via Idempotency-Key header</div>
+
+          </div>
+        </div>
+
+      </div><!-- /page-changelog -->
+
+
+      <!-- ──────────────────────────────────────────
+           PAGE: SUPPORT
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-support">
+
+        <div class="section-title">Support</div>
+        <div class="section-subtitle">Need help? Reach out through one of the channels below.</div>
+
+        <div class="support-grid">
+          <div class="support-card">
+            <i class="ti ti-book" aria-hidden="true"></i>
+            <h4>Documentation</h4>
+            <p>docs.payflow.io</p>
+          </div>
+          <div class="support-card">
+            <i class="ti ti-mail" aria-hidden="true"></i>
+            <h4>Email Support</h4>
+            <p>dev-support@payflow.io</p>
+          </div>
+          <div class="support-card">
+            <i class="ti ti-activity" aria-hidden="true"></i>
+            <h4>Status Page</h4>
+            <p>status.payflow.io</p>
+          </div>
+        </div>
+
+        <div class="alert alert-info" style="margin-top:20px">
+          <i class="ti ti-clock" aria-hidden="true"></i>
+          Support response time is typically within 24 hours on business days.
+          Enterprise customers have access to priority support.
+        </div>
+
+      </div><!-- /page-support -->
+
+
+    </div><!-- /content -->
+  </main><!-- /main -->
+
+</div><!-- /layout -->
+
+<!-- JavaScript -->
+<script src="main.js"></script>
+
+</body>
+</html>
